@@ -68,12 +68,39 @@ function exampleLogarithmic(n) {
 //   return count;
 // }
 
+// function a(n) {
+//   let count = 0;
+//   for (let i = 0; i < n; i++) {
+//     count += 1;
+//   }
+//   count += 3;
+//   return count;
+// }
+
+// console.log(a(5));
+
+// 곱의 법칙
+
+// function a(n) {
+//   let count = 0;
+//   for (let i = 0; i < n; i++) {
+//     count += 1;
+//     for (let j = 0; j < 5 * n; j++) {
+//       count += 1;
+//     }
+//   }
+//   return count;
+// }
+
+// console.log(a(5));
+
+// 다항 법칙
+
 function a(n) {
   let count = 0;
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n * n; i++) {
     count += 1;
   }
-  count += 3;
   return count;
 }
 
