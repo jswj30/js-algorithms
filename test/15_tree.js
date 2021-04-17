@@ -225,21 +225,21 @@ BinaryTree.prototype.traverseLevelOrder = function () {
 
 // 테스트
 
-let root1 = new BinaryTree();
-let leaf1 = new BinaryTreeNode(42);
-let leaf2_1 = new BinaryTreeNode(41);
-let leaf2_2 = new BinaryTreeNode(50);
-leaf1.left = leaf2_1;
-leaf1.right = leaf2_2;
-let leaf3_1 = new BinaryTreeNode(10);
-let leaf3_2 = new BinaryTreeNode(40);
-let leaf3_3 = new BinaryTreeNode(45);
-let leaf3_4 = new BinaryTreeNode(75);
-leaf2_1.left = leaf3_1;
-leaf2_1.right = leaf3_2;
-leaf2_2.left = leaf3_3;
-leaf2_2.right = leaf3_4;
-root1._root = leaf1;
+// let root1 = new BinaryTree();
+// let leaf1 = new BinaryTreeNode(42);
+// let leaf2_1 = new BinaryTreeNode(41);
+// let leaf2_2 = new BinaryTreeNode(50);
+// leaf1.left = leaf2_1;
+// leaf1.right = leaf2_2;
+// let leaf3_1 = new BinaryTreeNode(10);
+// let leaf3_2 = new BinaryTreeNode(40);
+// let leaf3_3 = new BinaryTreeNode(45);
+// let leaf3_4 = new BinaryTreeNode(75);
+// leaf2_1.left = leaf3_1;
+// leaf2_1.right = leaf3_2;
+// leaf2_2.left = leaf3_3;
+// leaf2_2.right = leaf3_4;
+// root1._root = leaf1;
 
-console.log(root1);
-console.log(root1.traverseLevelOrder());
+// console.log(root1);
+// console.log(root1.traverseLevelOrder());
