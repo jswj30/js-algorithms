@@ -29,39 +29,39 @@ function BinaryTree() {
 
 // 선순위 순회 재귀 방식
 
-// BinaryTree.prototype.traversePreOrder = function () {
-//   traversePreOrderHelper(this._root);
+BinaryTree.prototype.traversePreOrder = function () {
+  traversePreOrderHelper(this._root);
 
-//   function traversePreOrderHelper(node) {
-//     if (!node) return;
-//     console.log(node.value);
-//     traversePreOrderHelper(node.left);
-//     traversePreOrderHelper(node.right);
-//   }
-// };
+  function traversePreOrderHelper(node) {
+    if (!node) return;
+    console.log(node.value);
+    traversePreOrderHelper(node.left);
+    traversePreOrderHelper(node.right);
+  }
+};
 
 // 선순위 순회 반복문 방식
 
-// BinaryTree.prototype.traversePreOrderIterative = function () {
-//   // 빈 스택을 생성한 다음 루트를 스택에 추가한다.
-//   let nodeStack = [];
-//   nodeStack.push(this._root);
+BinaryTree.prototype.traversePreOrderIterative = function () {
+  // 빈 스택을 생성한 다음 루트를 스택에 추가한다.
+  let nodeStack = [];
+  nodeStack.push(this._root);
 
-//   // 모든 항목을 하나씩 꺼낸다. 꺼낸 항목에 대해 다음 사항을 수행한다.
-//   // a) 항목을 출력한다.
-//   // b) 오른쪽 자식을 스택에 추가한다.
-//   // c) 왼쪽 자식을 스택에 추가한다.
-//   // 오른쪽 자식을 왼쪽 자식보다 먼저 스택에 추가해 왼쪽 자식이 먼저 처리되도록 했다.
-//   while (nodeStack.length) {
-//     // 스택으로부터 최상위 항목을 꺼낸 다음 출력한다.
-//     let node = nodeStack.pop();
-//     console.log(node.value);
+  // 모든 항목을 하나씩 꺼낸다. 꺼낸 항목에 대해 다음 사항을 수행한다.
+  // a) 항목을 출력한다.
+  // b) 오른쪽 자식을 스택에 추가한다.
+  // c) 왼쪽 자식을 스택에 추가한다.
+  // 오른쪽 자식을 왼쪽 자식보다 먼저 스택에 추가해 왼쪽 자식이 먼저 처리되도록 했다.
+  while (nodeStack.length) {
+    // 스택으로부터 최상위 항목을 꺼낸 다음 출력한다.
+    let node = nodeStack.pop();
+    console.log(node.value);
 
-//     // 꺼낸 노드의 오른쪽 자식과 왼쪽 자식을 스택에 추가한다.
-//     if (node.right) nodeStack.push(node.right);
-//     if (node.left) nodeStack.push(node.left);
-//   }
-// };
+    // 꺼낸 노드의 오른쪽 자식과 왼쪽 자식을 스택에 추가한다.
+    if (node.right) nodeStack.push(node.right);
+    if (node.left) nodeStack.push(node.left);
+  }
+};
 
 // 테스트
 
@@ -126,22 +126,83 @@ BinaryTree.prototype.traverseInOrderIterative = function () {
 
 // 테스트
 
-let root1 = new BinaryTree();
-let leaf1 = new BinaryTreeNode(42);
-let leaf2_1 = new BinaryTreeNode(41);
-let leaf2_2 = new BinaryTreeNode(50);
-leaf1.left = leaf2_1;
-leaf1.right = leaf2_2;
-let leaf3_1 = new BinaryTreeNode(10);
-let leaf3_2 = new BinaryTreeNode(40);
-let leaf3_3 = new BinaryTreeNode(45);
-let leaf3_4 = new BinaryTreeNode(75);
-leaf2_1.left = leaf3_1;
-leaf2_1.right = leaf3_2;
-leaf2_2.left = leaf3_3;
-leaf2_2.right = leaf3_4;
-root1._root = leaf1;
+// let root1 = new BinaryTree();
+// let leaf1 = new BinaryTreeNode(42);
+// let leaf2_1 = new BinaryTreeNode(41);
+// let leaf2_2 = new BinaryTreeNode(50);
+// leaf1.left = leaf2_1;
+// leaf1.right = leaf2_2;
+// let leaf3_1 = new BinaryTreeNode(10);
+// let leaf3_2 = new BinaryTreeNode(40);
+// let leaf3_3 = new BinaryTreeNode(45);
+// let leaf3_4 = new BinaryTreeNode(75);
+// leaf2_1.left = leaf3_1;
+// leaf2_1.right = leaf3_2;
+// leaf2_2.left = leaf3_3;
+// leaf2_2.right = leaf3_4;
+// root1._root = leaf1;
 
-console.log(root1);
-console.log(root1.traverseInOrder());
-console.log(root1.traverseInOrderIterative());
+// console.log(root1);
+// console.log(root1.traverseInOrder());
+// console.log(root1.traverseInOrderIterative());
+
+// 후순위 순회 재귀 방식
+
+BinaryTree.prototype.traversePostOrder = function () {
+  traversePostOrderHelper(this._root);
+
+  function traversePostOrderHelper(node) {
+    if (node.left) traversePostOrderHelper(node.left);
+    if (node.right) traversePostOrderHelper(node.right);
+    console.log(node.value);
+  }
+};
+
+// 후순위 순회 반복문 방식
+
+BinaryTree.prototype.traversePostOrderIterative = function () {
+  // 두 개의 스택을 만든다.
+  let s1 = [];
+  let s2 = [];
+
+  // 루트를 첫 번째 스택에 추가한다.
+  s1.push(this._root);
+
+  // 첫 번째 스택이 비어 있는 동안 계속 실행한다.
+  while (s1.length) {
+    // s1으로부터 항목을 꺼내 s2에 추가한다.
+    let node = s1.pop();
+    s2.push(node);
+
+    // 제거된 항목의 왼쪽 자식과 오른쪽 자식을 s1에 추가한다.
+    if (node.left) s1.push(node.left);
+    if (node.right) s1.push(node.right);
+  }
+  // 두 번째 스택의 모든 항목을 출력한다.
+  while (s2.length) {
+    let node = s2.pop();
+    console.log(node.value);
+  }
+};
+
+// 테스트
+
+// let root1 = new BinaryTree();
+// let leaf1 = new BinaryTreeNode(42);
+// let leaf2_1 = new BinaryTreeNode(41);
+// let leaf2_2 = new BinaryTreeNode(50);
+// leaf1.left = leaf2_1;
+// leaf1.right = leaf2_2;
+// let leaf3_1 = new BinaryTreeNode(10);
+// let leaf3_2 = new BinaryTreeNode(40);
+// let leaf3_3 = new BinaryTreeNode(45);
+// let leaf3_4 = new BinaryTreeNode(75);
+// leaf2_1.left = leaf3_1;
+// leaf2_1.right = leaf3_2;
+// leaf2_2.left = leaf3_3;
+// leaf2_2.right = leaf3_4;
+// root1._root = leaf1;
+
+// console.log(root1);
+// console.log(root1.traversePostOrder());
+// console.log(root1.traversePostOrderIterative());
