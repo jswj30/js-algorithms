@@ -64,4 +64,62 @@ graph2.addEdge(1, 5, 88);
 graph2.removeVertex(5);
 graph2.removeVertex(1);
 graph2.removeEdge(2, 3);
-console.log(graph2);
+// console.log(graph2);
+
+// 지향성 그래프 생성
+function DirectedGraph() {
+  this.edges = {};
+}
+
+// 정점 추가하기
+DirectedGraph.prototype.addVertex = function (vertex) {
+  this.edges[vertex] = {};
+};
+
+// 간선 추가하기
+DirectedGraph.prototype.addEdge = function (origVertex, destVertex, weight) {
+  if (weight === undefined) {
+    weight = 0;
+  }
+  this.edges[origVertex][destVertex] = weight;
+};
+
+// 테스트
+// let digraph1 = new DirectedGraph();
+// digraph1.addVertex("A");
+// digraph1.addVertex("B");
+// digraph1.addVertex("C");
+// digraph1.addEdge("A", "B", 1);
+// digraph1.addEdge("B", "C", 2);
+// digraph1.addEdge("C", "A", 3);
+// console.log(digraph1);
+
+// 간선 삭제하기
+DirectedGraph.prototype.removeEdge = function (origVertex, destVertex) {
+  if (
+    this.edges[origVertex] &&
+    this.edges[origVertex][destVertex] != undefined
+  ) {
+    delete this.edges[origVertex][destVertex];
+  }
+};
+
+// 정점 삭제하기
+DirectedGraph.prototype.removeVertex = function (vertex) {
+  for (let adjacentVertex in this.edges[vertex]) {
+    this.removeEdge(adjacentVertex, vertex);
+  }
+  delete this.edges[vertex];
+};
+
+// 테스트
+let digraph1 = new DirectedGraph();
+digraph1.addVertex("A");
+digraph1.addVertex("B");
+digraph1.addVertex("C");
+digraph1.addEdge("A", "B", 1);
+digraph1.addEdge("B", "C", 2);
+digraph1.addEdge("C", "A", 3);
+digraph1.removeEdge("C", "A");
+digraph1.removeVertex("A");
+console.log(digraph1);
