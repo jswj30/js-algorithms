@@ -184,25 +184,88 @@ DirectedGraph.prototype._traverseDFS = function (vertex, visited, fn) {
 };
 
 // 테스트
-let digraph1 = new DirectedGraph();
+// let digraph1 = new DirectedGraph();
+// digraph1.addVertex("A");
+// digraph1.addVertex("B");
+// digraph1.addEdge("A", "B", 1);
+// digraph1.addVertex("C");
+// digraph1.addVertex("E");
+// digraph1.addEdge("B", "C", 2);
+// digraph1.addEdge("B", "E", 8);
+// digraph1.addVertex("D");
+// digraph1.addEdge("C", "D", 3);
+// digraph1.addVertex("G");
+// digraph1.addVertex("F");
+// digraph1.addEdge("D", "G", 4);
+// digraph1.addEdge("D", "F", 6);
+// digraph1.addVertex("H");
+// digraph1.addVertex("J");
+// digraph1.addEdge("G", "H", 5);
+// digraph1.addEdge("F", "J", 7);
+// console.log(digraph1);
+// digraph1.traverseDFS("B", (vertex) => {
+//   console.log(vertex);
+// });
+
+// 다익스트라의 알고리즘: 최단경로
+function _isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
+
+function _extractMin(Q, dist) {
+  let minimumDistance = Infinity,
+    nodeWithMinimumDistance = null;
+  for (let node in Q) {
+    if (dist[node] <= minimumDistance) {
+      minimumDistance = dist[node];
+      nodeWithMinimumDistance = node;
+    }
+  }
+  return nodeWithMinimumDistance;
+}
+
+DirectedGraph.prototype.Dijkstra = function (source) {
+  // 정점 집합 Q를 생성한다.
+  let Q = {},
+    dist = {};
+  for (let vertex in this.edges) {
+    // 모르는 거리는 무한으로 설정한다.
+    dist[vertex] = Infinity;
+    // v를 Q에 추가한다.
+    Q[vertex] = this.edges[vertex];
+  }
+  // 출발점에서 출발점까지의 거리를 0으로 설정한다.
+  dist[source] = 0;
+
+  while (!_isEmpty(Q)) {
+    let u = _extractMin(Q, dist); // 최소 거리를 얻는다.
+
+    // Q로부터 u를 제거한다.
+    delete Q[u];
+
+    // v가 여전히 Q에 있는 한
+    // u의 각 이웃 v에 대해 다음을 수행한다.
+    for (let neighbor in this.edges[u]) {
+      // 현재 거리
+      let alt = dist[u] + this.edges[u][neighbor];
+      // 더 짧은 경로가 발견됐다.
+      if (alt < dist[neighbor]) {
+        dist[neighbor] = alt;
+      }
+    }
+  }
+  return dist;
+};
+
+// 테스트
+var digraph1 = new DirectedGraph();
 digraph1.addVertex("A");
 digraph1.addVertex("B");
-digraph1.addEdge("A", "B", 1);
 digraph1.addVertex("C");
-digraph1.addVertex("E");
-digraph1.addEdge("B", "C", 2);
-digraph1.addEdge("B", "E", 8);
 digraph1.addVertex("D");
-digraph1.addEdge("C", "D", 3);
-digraph1.addVertex("G");
-digraph1.addVertex("F");
-digraph1.addEdge("D", "G", 4);
-digraph1.addEdge("D", "F", 6);
-digraph1.addVertex("H");
-digraph1.addVertex("J");
-digraph1.addEdge("G", "H", 5);
-digraph1.addEdge("F", "J", 7);
+digraph1.addEdge("A", "B", 1);
+digraph1.addEdge("B", "C", 1);
+digraph1.addEdge("C", "A", 1);
+digraph1.addEdge("A", "D", 1);
 console.log(digraph1);
-digraph1.traverseDFS("B", (vertex) => {
-  console.log(vertex);
-});
+console.log(digraph1.Dijkstra("A"));
