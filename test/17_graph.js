@@ -144,6 +144,46 @@ DirectedGraph.prototype.traverseBFS = function (vertex, fn) {
 };
 
 // 테스트
+// let digraph1 = new DirectedGraph();
+// digraph1.addVertex("A");
+// digraph1.addVertex("B");
+// digraph1.addEdge("A", "B", 1);
+// digraph1.addVertex("C");
+// digraph1.addVertex("E");
+// digraph1.addEdge("B", "C", 2);
+// digraph1.addEdge("B", "E", 3);
+// digraph1.addVertex("D");
+// digraph1.addEdge("C", "D", 4);
+// digraph1.addVertex("G");
+// digraph1.addVertex("F");
+// digraph1.addEdge("D", "G", 5);
+// digraph1.addEdge("D", "F", 6);
+// digraph1.addVertex("H");
+// digraph1.addVertex("J");
+// digraph1.addEdge("G", "H", 7);
+// digraph1.addEdge("F", "J", 8);
+// console.log(digraph1);
+// digraph1.traverseBFS("B", (vertex) => {
+//   console.log(vertex);
+// });
+
+// 깊이 우선 검색(DFS)
+DirectedGraph.prototype.traverseDFS = function (vertex, fn) {
+  let visited = {};
+  this._traverseDFS(vertex, visited, fn);
+};
+
+DirectedGraph.prototype._traverseDFS = function (vertex, visited, fn) {
+  visited[vertex] = true;
+  fn(vertex);
+  for (let adjacentVertex in this.edges[vertex]) {
+    if (!visited[adjacentVertex]) {
+      this._traverseDFS(adjacentVertex, visited, fn);
+    }
+  }
+};
+
+// 테스트
 let digraph1 = new DirectedGraph();
 digraph1.addVertex("A");
 digraph1.addVertex("B");
@@ -151,18 +191,18 @@ digraph1.addEdge("A", "B", 1);
 digraph1.addVertex("C");
 digraph1.addVertex("E");
 digraph1.addEdge("B", "C", 2);
-digraph1.addEdge("B", "E", 3);
+digraph1.addEdge("B", "E", 8);
 digraph1.addVertex("D");
-digraph1.addEdge("C", "D", 4);
+digraph1.addEdge("C", "D", 3);
 digraph1.addVertex("G");
 digraph1.addVertex("F");
-digraph1.addEdge("D", "G", 5);
+digraph1.addEdge("D", "G", 4);
 digraph1.addEdge("D", "F", 6);
 digraph1.addVertex("H");
 digraph1.addVertex("J");
-digraph1.addEdge("G", "H", 7);
-digraph1.addEdge("F", "J", 8);
+digraph1.addEdge("G", "H", 5);
+digraph1.addEdge("F", "J", 7);
 console.log(digraph1);
-digraph1.traverseBFS("B", (vertex) => {
+digraph1.traverseDFS("B", (vertex) => {
   console.log(vertex);
 });
