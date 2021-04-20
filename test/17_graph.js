@@ -113,13 +113,56 @@ DirectedGraph.prototype.removeVertex = function (vertex) {
 };
 
 // 테스트
+// let digraph1 = new DirectedGraph();
+// digraph1.addVertex("A");
+// digraph1.addVertex("B");
+// digraph1.addVertex("C");
+// digraph1.addEdge("A", "B", 1);
+// digraph1.addEdge("B", "C", 2);
+// digraph1.addEdge("C", "A", 3);
+// digraph1.removeEdge("C", "A");
+// digraph1.removeVertex("A");
+// console.log(digraph1);
+
+// 너비 우선 검색(BFS)
+DirectedGraph.prototype.traverseBFS = function (vertex, fn) {
+  let queue = [],
+    visited = {};
+
+  queue.push(vertex);
+
+  while (queue.length) {
+    vertex = queue.shift();
+    if (!visited[vertex]) {
+      visited[vertex] = true;
+      fn(vertex);
+      for (let adjacentVertex in this.edges[vertex]) {
+        queue.push(adjacentVertex);
+      }
+    }
+  }
+};
+
+// 테스트
 let digraph1 = new DirectedGraph();
 digraph1.addVertex("A");
 digraph1.addVertex("B");
-digraph1.addVertex("C");
 digraph1.addEdge("A", "B", 1);
+digraph1.addVertex("C");
+digraph1.addVertex("E");
 digraph1.addEdge("B", "C", 2);
-digraph1.addEdge("C", "A", 3);
-digraph1.removeEdge("C", "A");
-digraph1.removeVertex("A");
+digraph1.addEdge("B", "E", 3);
+digraph1.addVertex("D");
+digraph1.addEdge("C", "D", 4);
+digraph1.addVertex("G");
+digraph1.addVertex("F");
+digraph1.addEdge("D", "G", 5);
+digraph1.addEdge("D", "F", 6);
+digraph1.addVertex("H");
+digraph1.addVertex("J");
+digraph1.addEdge("G", "H", 7);
+digraph1.addEdge("F", "J", 8);
 console.log(digraph1);
+digraph1.traverseBFS("B", (vertex) => {
+  console.log(vertex);
+});
