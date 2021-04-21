@@ -268,4 +268,4 @@ digraph1.addEdge("B", "C", 1);
 digraph1.addEdge("C", "A", 1);
 digraph1.addEdge("A", "D", 1);
 console.log(digraph1);
-console.log(digraph1.Dijkstra("A"));
+console.log(digraph1.Dijkstra("C"));
