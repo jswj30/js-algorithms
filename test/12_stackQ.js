@@ -79,4 +79,22 @@ let stack3 = new Stack();
 stack3.push(1);
 stack3.push(2);
 stack3.push(3);
-console.log(stackSearch(stack3, 2));
+// console.log(stackSearch(stack3, 2));
+
+// 큐(Queue)
+function Queue(array) {
+  this.array = [];
+  if (array) this.array = array;
+}
+
+Queue.prototype.getBuffer = function () {
+  return this.array.slice();
+};
+
+Queue.prototype.isEmpty = function () {
+  return this.array.length === 0;
+};
+
+// 테스트
+let queue1 = new Queue();
+console.log(queue1); // Queue { array: [] }
