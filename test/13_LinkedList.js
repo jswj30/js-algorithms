@@ -98,7 +98,7 @@ sll3.insert(1);
 sll3.insert(12);
 sll3.insert(20);
 sll3.deleteAtHead();
-console.log(sll3);
+// console.log(sll3);
 // SinglyLinkedList {
 //   head: SinglyLinkedListNode {
 //     data: 12,
@@ -143,3 +143,196 @@ function DoublyLinkedList() {
 DoublyLinkedList.prototype.isEmpty = function () {
   return this.size === 0;
 };
+
+// 헤드에 항목 삽입하기
+DoublyLinkedList.prototype.insertAtHead = function (value) {
+  if (this.head === null) {
+    this.head = new DoublyLinkedListNode(value);
+    this.tail = this.head;
+  } else {
+    let temp = new DoublyLinkedListNode(value);
+    temp.next = this.head;
+    this.head.prev = temp;
+    this.head = temp;
+  }
+  this.size++;
+};
+
+// 테스트
+let dll1 = new DoublyLinkedList();
+dll1.insertAtHead(10);
+dll1.insertAtHead(12);
+dll1.insertAtHead(20);
+// console.log(dll1);
+// DoublyLinkedList {
+//   head: <ref *1> DoublyLinkedListNode {
+//     data: 20,
+//     next: DoublyLinkedListNode {
+//       data: 12,
+//       next: [DoublyLinkedListNode],
+//       prev: [Circular *1]
+//     },
+//     prev: null
+//   },
+//   tail: <ref *2> DoublyLinkedListNode {
+//     data: 10,
+//     next: null,
+//     prev: DoublyLinkedListNode {
+//       data: 12,
+//       next: [Circular *2],
+//       prev: [DoublyLinkedListNode]
+//     }
+//   },
+//   size: 3
+// }
+
+// 테일에 항목 삽입하기
+DoublyLinkedList.prototype.insertAtTail = function (value) {
+  if (this.tail === null) {
+    // 첫 번째 노드의 null 여부 확인
+    this.tail = new DoublyLinkedListNode(value);
+    this.head = this.tail;
+  } else {
+    let temp = new DoublyLinkedListNode(value);
+    temp.prev = this.tail;
+    this.tail.next = temp;
+    this.tail = temp;
+  }
+  this.size++;
+};
+
+// 테스트
+let dll2 = new DoublyLinkedList();
+dll2.insertAtTail(10);
+dll2.insertAtTail(12);
+dll2.insertAtTail(20);
+dll2.insertAtTail(30);
+// console.log(dll2);
+// DoublyLinkedList {
+//   head: <ref *1> DoublyLinkedListNode {
+//     data: 10,
+//     next: DoublyLinkedListNode {
+//       data: 12,
+//       next: [DoublyLinkedListNode],
+//       prev: [Circular *1]
+//     },
+//     prev: null
+//   },
+//   tail: <ref *2> DoublyLinkedListNode {
+//     data: 30,
+//     next: null,
+//     prev: DoublyLinkedListNode {
+//       data: 20,
+//       next: [Circular *2],
+//       prev: [DoublyLinkedListNode]
+//     }
+//   },
+//   size: 4
+// }
+
+// 헤드에 항목 삭제하기
+DoublyLinkedList.prototype.deleteAtHead = function () {
+  let toReturn = null;
+  if (this.head !== null) {
+    toReturn = this.head.data;
+    if (this.tail === this.head) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.head = this.head.next;
+      this.head.prev = null;
+    }
+  }
+  this.size--;
+  return toReturn;
+};
+
+// 테일에 항목 삭제하기
+DoublyLinkedList.prototype.deleteAtTail = function () {
+  let toReturn = null;
+
+  if (this.tail !== null) {
+    toReturn = this.tail.data;
+    if (this.tail === this.head) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+    }
+  }
+  this.size--;
+  return toReturn;
+};
+
+// 테스트
+let dll3 = new DoublyLinkedList();
+dll3.insertAtHead(10);
+dll3.insertAtHead(12);
+dll3.insertAtHead(20);
+dll3.insertAtTail(30);
+dll3.deleteAtTail();
+// console.log(dll3);
+// DoublyLinkedList {
+//   head: <ref *1> DoublyLinkedListNode {
+//     data: 20,
+//     next: DoublyLinkedListNode {
+//       data: 12,
+//       next: [DoublyLinkedListNode],
+//       prev: [Circular *1]
+//     },
+//     prev: null
+//   },
+//   tail: <ref *2> DoublyLinkedListNode {
+//     data: 10,
+//     next: null,
+//     prev: DoublyLinkedListNode {
+//       data: 12,
+//       next: [Circular *2],
+//       prev: [DoublyLinkedListNode]
+//     }
+//   },
+//   size: 3
+// }
+
+// 헤드부터 검색
+DoublyLinkedList.prototype.findStartingHead = function (value) {
+  let currentHead = this.head;
+  while (currentHead.next) {
+    if (currentHead.data == value) {
+      return true;
+    }
+    currentHead = currentHead.next;
+  }
+  return false;
+};
+
+// 테스트
+let dll4 = new DoublyLinkedList();
+dll4.insertAtHead(10);
+dll4.insertAtHead(12);
+dll4.insertAtHead(20);
+dll4.insertAtTail(30);
+// console.log(dll4.findStartingHead(10)); // true
+// console.log(dll4.findStartingHead(100)); // false
+
+// 테일부터 검색
+DoublyLinkedList.prototype.findStartingTail = function (value) {
+  let currentTail = this.tail;
+  while (currentTail.prev) {
+    if (currentTail.data === value) {
+      return true;
+    }
+    currentTail = currentTail.prev;
+  }
+  return false;
+};
+
+// 테스트
+let dll5 = new DoublyLinkedList();
+dll5.insertAtHead(10);
+dll5.insertAtHead(12);
+dll5.insertAtHead(20);
+dll5.insertAtTail(30);
+// console.log(dll5.findStartingTail(10)); // true
+// console.log(dll5.findStartingTail(100)); // false
