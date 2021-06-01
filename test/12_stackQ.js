@@ -53,7 +53,6 @@ function stackAccessNthTopNode(stack, n) {
 }
 
 // 테스트
-
 let stack2 = new Stack();
 stack2.push(1);
 stack2.push(2);
@@ -61,7 +60,6 @@ stack2.push(3);
 // console.log(stackAccessNthTopNode(stack2, 2));
 
 // 검색
-
 function stackSearch(stack, element) {
   let bufferArray = stack.getBuffer();
 
@@ -97,4 +95,61 @@ Queue.prototype.isEmpty = function () {
 
 // 테스트
 let queue1 = new Queue();
-console.log(queue1); // Queue { array: [] }
+// console.log(queue1); // Queue { array: [] }
+
+// 들여다보기
+Queue.prototype.peek = function () {
+  return this.array[0];
+};
+
+// 삽입
+Queue.prototype.enqueue = function (value) {
+  return this.array.push(value);
+}; // 시간 복잡도 : O(1)
+
+// 삭제
+Queue.prototype.dequeue = function () {
+  return this.array.shift();
+};
+
+// 테스트
+let queue2 = new Queue();
+
+queue2.enqueue(1);
+queue2.enqueue(2);
+queue2.enqueue(3);
+
+// console.log(queue2); // Queue { array: [ 1, 2, 3 ] }
+
+queue2.dequeue();
+// console.log(queue2); // Queue { array: [ 2, 3 ] }
+
+queue2.dequeue();
+console.log(queue2); // Queue { array: [ 3 ] }
+
+// 접근
+function queueAccessNthTopNode(queue, n) {
+  let bufferArray = queue.getBuffer();
+  if (n <= 0) throw "error";
+
+  let bufferQueue = new Queue(bufferArray);
+
+  while (--n !== 0) {
+    bufferQueue.dequeue();
+  }
+  return bufferQueue.dequeue();
+}
+
+// 검색
+function queueSearch(queue, element) {
+  let bufferArray = queue.getBuffer();
+
+  let bufferQueue = new Queue(bufferArray);
+
+  while (!bufferQueue.isEmpty()) {
+    if (bufferQueue.dequeue() === element) {
+      return true;
+    }
+  }
+  return false;
+}
