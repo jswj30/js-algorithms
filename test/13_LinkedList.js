@@ -1,10 +1,10 @@
-// 단일 연결 리스트
+// 단일 연결 리스트 노드
 function SinglyLinkedListNode(data) {
   this.data = data;
   this.next = null;
 }
 
-// 단일 연결 리스트의 기본이 되는 코드
+// 단일 연결 리스트 기본 코드
 function SinglyLinkedList() {
   this.head = null;
   this.size = 0;
@@ -98,7 +98,14 @@ sll3.insert(1);
 sll3.insert(12);
 sll3.insert(20);
 sll3.deleteAtHead();
-// console.log(sll3);
+console.log(sll3);
+// SinglyLinkedList {
+//   head: SinglyLinkedListNode {
+//     data: 12,
+//     next: SinglyLinkedListNode { data: 1, next: null }
+//   },
+//   size: 2
+// }
 
 // 검색
 SinglyLinkedList.prototype.find = function (value) {
@@ -117,4 +124,22 @@ let sll4 = new SinglyLinkedList();
 sll4.insert(1);
 sll4.insert(12);
 sll4.insert(20);
-// console.log(sll4.find(13));
+// console.log(sll4.find(12));
+
+// 이중 연결 리스트 노드
+function DoublyLinkedListNode(data) {
+  this.data = data;
+  this.next = null;
+  this.prev = null;
+}
+
+// 단일 연결 리스트의 기본 코드
+function DoublyLinkedList() {
+  this.head = null;
+  this.tail = null;
+  this.size = 0;
+}
+
+DoublyLinkedList.prototype.isEmpty = function () {
+  return this.size === 0;
+};
