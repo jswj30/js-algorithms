@@ -125,8 +125,7 @@ function isEquivalent(a, b) {
     }
   }
 
-  // 모든 것이 일치하면 두 객체는 일치한다.
-  return true;
+  return true; // 모든 것이 일치하면 두 객체는 일치한다.
 }
 
 var obj1 = { prop1: "test", prop2: function () {} };
